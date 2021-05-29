@@ -47,7 +47,7 @@ public class StoreService {
         List<Store> stores = storeRepository.findAll(Sort.by(Sort.Direction.ASC, "level"));
 
         return stores.stream().map(store -> {
-            Map<String, Object> objectMap = new LinkedHashMap<String, Object>();
+            Map<String, Object> objectMap = new LinkedHashMap<>();
             objectMap.put("name", store.getName());
             objectMap.put("description", store.getDescription());
             objectMap.put("level", store.getLevel());
@@ -81,7 +81,7 @@ public class StoreService {
     }
 
     private String businessStatus(LocalDate date, Optional<BusinessTime> compareBusinessTime, List<Holiday> holidayList){
-        String result = "";
+        String result;
 
         String searchDay = date.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
@@ -90,18 +90,23 @@ public class StoreService {
         }
 
         if(compareBusinessTime.isPresent()){
-            LocalTime openTime = LocalTime.parse(compareBusinessTime.get().getOpen());
-            LocalTime closeTime = null;
-            try {
-                closeTime = LocalTime.parse(compareBusinessTime.get().getClose());
-            }catch(DateTimeParseException e){
-                closeTime = LocalTime.parse("23:59:59");
-            }
-            LocalTime currentTime = LocalTime.now();
-            if(currentTime.isBefore(closeTime) && currentTime.isAfter(openTime)){
-                result = "OPEN";
-            }else {
-                result = "CLOSE";
+            String today =  LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+            if(!today.equals(searchDay)){
+                result =  "OPEN";
+            }else{
+                LocalTime openTime = LocalTime.parse(compareBusinessTime.get().getOpen());
+                LocalTime closeTime;
+                try {
+                    closeTime = LocalTime.parse(compareBusinessTime.get().getClose());
+                }catch(DateTimeParseException e){
+                    closeTime = LocalTime.parse("23:59:59");
+                }
+                LocalTime currentTime = LocalTime.now();
+                if(currentTime.isBefore(closeTime) && currentTime.isAfter(openTime)){
+                    result = "OPEN";
+                }else {
+                    result = "CLOSE";
+                }
             }
         }else{
             result = "HOLIDAY";
