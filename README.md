@@ -44,3 +44,9 @@ method : GET
 
 param : id
 
+#### E. 점포 삭제 API
+url : localhost:8080/mvc/store
+
+method : DELETE
+
+param : id
