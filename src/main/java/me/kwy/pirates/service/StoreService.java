@@ -7,6 +7,7 @@ import me.kwy.pirates.model.holiday.Holiday;
 import me.kwy.pirates.model.store.Store;
 import me.kwy.pirates.model.store.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,13 @@ public class StoreService {
     }
 
     public  void deleteStoreById(int id){
-        storeRepository.deleteById(id);
+        try{
+            storeRepository.deleteById(id);
+        }
+        catch(EmptyResultDataAccessException ignored){
+
+        }
+
     }
 
     public List<Object> getStores(){
