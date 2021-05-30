@@ -179,9 +179,9 @@ url : localhost:8080/mvc/list
 
 method : GET
 
-##### Sample-1
+   ##### Sample-1
 
-localhost:8080/mvc/list
+   localhost:8080/mvc/list
 
 
 #### D. 점포 상세 정보 조회 API
@@ -192,9 +192,9 @@ method : GET
 params :
          key : id
 
-##### Sample-1
+   ##### Sample-1
 
-localhost:8080/mvc/store?id=1
+   localhost:8080/mvc/store?id=1
 
 #### E. 점포 삭제 API
 url : localhost:8080/mvc/store
@@ -204,6 +204,6 @@ method : DELETE
 params :
          key : id
 
-##### Sample-1
+   ##### Sample-1
 
-localhost:8080/mvc/store?id=1
+   localhost:8080/mvc/store?id=1
